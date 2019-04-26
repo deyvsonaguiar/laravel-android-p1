@@ -31,14 +31,6 @@ class AuthController extends Controller
 
     }
 
-    private function responseToken($token)
-    {
-        return $token ? ['token' => $token] :
-            response()->json([
-            'error' => \Lang::get('auth.failed')
-        ], 400);
-    }
-
     public function logout()
     {
         try {
@@ -50,9 +42,14 @@ class AuthController extends Controller
 
     }
 
-    public function refresh()
+    public function refreshToken(Request $request)
     {
-        $token = \Auth::guard('api')->refresh();
-        return ['token' => $token];
+        try {
+            $bearerToken = \JWTAuth::setRequest($request)->getToken();
+            $token = \JWTAuth::refresh($bearerToken);
+        } catch (JWTException $exception) {
+            return response()->json(['error' => 'could_not_refresh_token'], 500);
+        }
+        return response()->json(compact('token'));
     }
 }

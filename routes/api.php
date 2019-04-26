@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 */
 
 Route::post('login', 'Api\AuthController@login')->name('api.login');
-Route::post('refresh', 'Api\AuthController@refresh')->name('api.refresh');
+Route::post('refresh_token', 'Api\AuthController@refreshToken')->name('api.refresh_token');
 
-Route::group(['middleware' => ['auth:api', 'jwt.refresh']], function() {
+Route::group(['middleware' => ['auth:api']], function() {
     Route::get('users', function () {
         return \App\User::all();
     });
