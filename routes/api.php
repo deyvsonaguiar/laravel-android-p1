@@ -20,6 +20,7 @@ Route::group(['namespace' => 'Api'], function() {
         });
         Route::post('logout', 'AuthController@logout')->name('api.logout');
         Route::resource('categories', 'CategoryController', ['except' => ['create', 'edit']]);
+        Route::resource('billpays', 'BillPaysController', ['except' => ['create', 'edit']]);
     });
 
 });

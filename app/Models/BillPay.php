@@ -20,6 +20,12 @@ class BillPay extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'date_due',
+        'value',
+        'done',
+        'category_id'
+    ];
 
 }
