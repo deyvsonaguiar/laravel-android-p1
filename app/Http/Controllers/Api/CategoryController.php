@@ -40,6 +40,13 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        //
+        $deleted = $this->repository->delete($id);
+        if ($deleted) {
+            return response()->json([], 204);
+        } else {
+            return response()->json([
+                'error' => 'Resource can not be deleted'
+            ], 500);
+        }
     }
 }
