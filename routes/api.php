@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 Route::group(['namespace' => 'Api'], function() {
 
+    Route::post('users', 'UserController@store');
+
     Route::post('login', 'AuthController@login')->name('api.login');
     Route::post('refresh_token', 'AuthController@refreshToken')->name('api.refresh_token');
 
