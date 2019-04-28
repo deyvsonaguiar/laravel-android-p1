@@ -28,10 +28,8 @@ class BillPayRequest extends FormRequest
             'name' => 'required|max:255',
             'date_due' => 'required|date',
             'value' => 'required|numeric',
-            'category_id' => [
-                'required',
-                (new Exists('categories', 'id'))
-            ]
+            'user_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
         ];
         if($this->method() == 'PUT') {
             $rules['done'] = 'required|boolean';

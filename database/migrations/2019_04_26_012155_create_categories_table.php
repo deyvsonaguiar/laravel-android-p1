@@ -18,6 +18,8 @@ class CreateCategoriesTable extends Migration
 		Schema::create('categories', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
 		});
 	}
@@ -29,6 +31,6 @@ class CreateCategoriesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('categories');
+		Schema::dropIfExists('categories');
 	}
 }

@@ -25,7 +25,8 @@ class BillPay extends Model implements Transformable
         'date_due',
         'value',
         'done',
-        'category_id'
+        'category_id',
+        'user_id'
     ];
 
 }

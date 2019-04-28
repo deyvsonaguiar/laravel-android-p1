@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Tenant\TenantManager;
+use function foo\func;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(TenantManager::class, function() {
+            return new TenantManager();
+        });
     }
 }

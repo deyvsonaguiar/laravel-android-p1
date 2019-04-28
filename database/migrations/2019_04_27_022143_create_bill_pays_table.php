@@ -21,8 +21,10 @@ class CreateBillPaysTable extends Migration
             $table->date('date_due');
             $table->float('value');
             $table->boolean('done')->default(0);
-            $table->integer('category_id')->unsigned();
+            $table->integer('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
 		});
 	}
@@ -34,6 +36,6 @@ class CreateBillPaysTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('bill_pays');
+		Schema::dropIfExists('bill_pays');
 	}
 }
