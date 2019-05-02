@@ -21,10 +21,10 @@ class CreateBillPaysTable extends Migration
             $table->date('date_due');
             $table->float('value');
             $table->boolean('done')->default(0);
-            $table->integer('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
             $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
 		});
 	}

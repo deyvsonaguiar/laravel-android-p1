@@ -15,4 +15,9 @@ class Category extends Model implements Transformable
 
     protected $fillable = ['name'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

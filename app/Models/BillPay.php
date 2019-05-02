@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Tenant\TenantModels;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -14,6 +15,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 class BillPay extends Model implements Transformable
 {
     use TransformableTrait;
+    use TenantModels;
 
     /**
      * The attributes that are mass assignable.
@@ -25,8 +27,9 @@ class BillPay extends Model implements Transformable
         'date_due',
         'value',
         'done',
-        'category_id',
-        'user_id'
+        'category_id'
     ];
+
+    protected $dates = ['date_due'];
 
 }
