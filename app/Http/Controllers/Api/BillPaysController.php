@@ -4,51 +4,43 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BillPayRequest;
-use App\Repositories\BillPayRepository;
+use App\Http\Resources\BillPayResource;
+use App\Models\BillPay;
 
 class BillPaysController extends Controller
 {
 
-    protected $repository;
-
-    public function __construct(BillPayRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function index()
     {
-        return $this->repository->all();
+        $billPays = BillPay::paginate();
+        return BillPayResource::collection($billPays);
 
     }
 
     public function store(BillPayRequest $request)
     {
-        $billPay = $this->repository->create($request->all());
-        return response()->json($billPay, 201);
+        $billPay = BillPay::create($request->all());
+        return new BillPayResource($billPay);
     }
 
-    public function show($id)
+    public function show(BillPay $bill_pay)
     {
-        return $this->repository->find($id);
+        return new BillPayResource($bill_pay);
     }
 
-    public function update(BillPayRequest $request, $id)
+    public function update(BillPayRequest $request, BillPay $bill_pay)
     {
-        $billPay = $this->repository->update($request->all(), $id);
-        return response()->json($billPay, 200);
+        $bill_pay->fill($request->all());
+        $bill_pay->save();
+
+        return new BillPayResource($bill_pay);
     }
 
-    public function destroy($id)
+    public function destroy(BillPay $bill_pay)
     {
-        $deleted = $this->repository->delete($id);
-        if ($deleted) {
-            return response()->json([], 204);
-        } else {
-            return response()->json([
-                'error' => 'Resource can not be deleted'
-            ], 500);
-        }
+        $bill_pay->delete();
+
+        return response()->json([], 204);
     }
 
 }

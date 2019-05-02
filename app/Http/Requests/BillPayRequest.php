@@ -28,8 +28,11 @@ class BillPayRequest extends FormRequest
             'name' => 'required|max:255',
             'date_due' => 'required|date',
             'value' => 'required|numeric',
-            'user_id' => 'required',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => [
+                'required',
+                (new Exists('categories', 'id'))
+                ->where('user_id', \Tenant::getTenant()->id)
+            ],
         ];
         if($this->method() == 'PUT') {
             $rules['done'] = 'required|boolean';
