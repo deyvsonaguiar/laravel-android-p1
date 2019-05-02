@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Api'], function() {
             return App\Models\User::all();
         });
         Route::post('logout', 'AuthController@logout')->name('api.logout');
+        Route::get('categories/{category}/bill_pays', 'CategoryBillPayController@index');
         Route::resource('categories', 'CategoryController', ['except' => ['create', 'edit']]);
         Route::resource('bill_pays', 'BillPaysController', ['except' => ['create', 'edit']]);
     });
