@@ -20,8 +20,8 @@ class TenantScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (TenantManager::getTenant()) {
-            $userId = TenantManager::getTenant()->id;
+        if (\Tenant::getTenant()) {
+            $userId = \Tenant::getTenant()->id;
             $builder->where('user_id', $userId);
         }
 

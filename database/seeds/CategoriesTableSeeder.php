@@ -11,6 +11,13 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Category::class, 50)->create();
+        $users = \App\Models\User::all();
+        factory(App\Models\Category::class, 100)
+        ->make()
+        ->each(function ($category) use($users) {
+            \Tenant::setTenant($users->random());
+            $category->save();
+        });
+        \Tenant::setTenant(null);
     }
 }

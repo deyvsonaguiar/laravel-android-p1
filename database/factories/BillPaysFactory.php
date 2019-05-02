@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
             'date_due' => $faker->date(),
             'value' => $faker->randomFloat(2, 100, 1000),
             'done' => (bool) rand(0,1),
-            'user_id' => rand(1, 21),
+            'user_id' => rand(1, 2),
             'category_id' => rand(1, 50)
 
     ];

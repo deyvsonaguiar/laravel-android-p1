@@ -2,51 +2,43 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Repositories\CategoryRepository;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
 
-    protected $repository;
-
-    public function __construct(CategoryRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function index()
     {
-        return $this->repository->all();
+        $categories = Category::paginate();
+        return $categories;
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $category = $this->repository->create($request->all());
-        return response()->json($category, 201);
+        $category = Category::create($request->all());
+        return $category;
     }
 
-    public function show($id)
+    public function show(Category $category)
     {
-        return $this->repository->find($id);
+        return $category;
     }
 
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $category = $this->repository->update($request->all(), $id);
-        return response()->json($category, 200);
+        $category->fill($request->all());
+        $category->save();
+
+        return $category;
     }
 
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $deleted = $this->repository->delete($id);
-        if ($deleted) {
-            return response()->json([], 204);
-        } else {
-            return response()->json([
-                'error' => 'Resource can not be deleted'
-            ], 500);
-        }
+        $category->delete();
+
+        return response()->json([], 204);
     }
 }
