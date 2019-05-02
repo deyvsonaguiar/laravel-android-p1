@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use mysql_xdevapi\Collection;
 
 class CategoryController extends Controller
 {
@@ -13,18 +15,18 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::paginate();
-        return $categories;
+        return CategoryResource::collection($categories);
     }
 
     public function store(CategoryRequest $request)
     {
         $category = Category::create($request->all());
-        return $category;
+        return new CategoryResource($category);
     }
 
     public function show(Category $category)
     {
-        return $category;
+        return new CategoryResource($category);
     }
 
     public function update(CategoryRequest $request, Category $category)
@@ -32,7 +34,7 @@ class CategoryController extends Controller
         $category->fill($request->all());
         $category->save();
 
-        return $category;
+        return new CategoryResource($category);
     }
 
     public function destroy(Category $category)
