@@ -12,7 +12,7 @@ class BillPaysController extends Controller
 
     public function index()
     {
-        $billPays = BillPay::paginate();
+        $billPays = BillPay::with('category')->paginate();
         return BillPayResource::collection($billPays);
 
     }

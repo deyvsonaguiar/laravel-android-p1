@@ -32,4 +32,8 @@ class BillPay extends Model implements Transformable
 
     protected $dates = ['date_due'];
 
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+
 }
