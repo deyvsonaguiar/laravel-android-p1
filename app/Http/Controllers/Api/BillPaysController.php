@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BillPayRequest;
+use App\Http\Resources\BillPayCollection;
 use App\Http\Resources\BillPayResource;
 use App\Models\BillPay;
 
@@ -13,7 +14,8 @@ class BillPaysController extends Controller
     public function index()
     {
         $billPays = BillPay::with('category')->paginate();
-        return BillPayResource::collection($billPays);
+        //return BillPayResource::collection($billPays);
+        return new BillPayCollection($billPays);
 
     }
 

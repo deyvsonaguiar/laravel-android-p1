@@ -36,4 +36,9 @@ class BillPay extends Model implements Transformable
         return $this->belongsTo(Category::class);
     }
 
+    public function scopePaid($query)
+    {
+        return $query->where('done', true);
+    }
+
 }
