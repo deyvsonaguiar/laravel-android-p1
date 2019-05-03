@@ -4,17 +4,14 @@ namespace App\Models;
 
 use App\Tenant\TenantModels;
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class BillPay.
  *
  * @package namespace App\Models;
  */
-class BillPay extends Model implements Transformable
+class BillPay extends Model
 {
-    use TransformableTrait;
     use TenantModels;
 
     /**

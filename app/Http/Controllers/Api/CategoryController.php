@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use mysql_xdevapi\Collection;
 
 class CategoryController extends Controller
 {
